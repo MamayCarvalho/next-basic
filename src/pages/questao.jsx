@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from "react";
 
 const LoadingSpinner = () => {
@@ -6,25 +7,26 @@ const LoadingSpinner = () => {
 
 export default function questao() {
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     const [questao, setQuestao] = useState({});
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-        fetch("http://localhost: 4077/api/questao/8045")
-          .then(resp => resp.json())
-          .then(questao => setQuestao(questao));
+        fetch("http://localhost:4077/api/questao/1")
+            .then(resp => resp.json())
+            .then(questao => setQuestao(questao));
     }, []);
 
     if (!questao) {
         return <LoadingSpinner />;
     }
 
+    const respo = [questao.resposta]
+
     return (
         <div>
             <h1>Questão</h1>
             <div>
-                <span>{questao.enunciado}</span>
+                {respo.map((resposta, index) => (<li key={index}>{resposta}</li>))}
             </div>
         </div>
     )
